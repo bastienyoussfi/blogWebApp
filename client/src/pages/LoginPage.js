@@ -34,10 +34,10 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="w-full max-w-[400px] mx-[auto] my-[0]">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <div className="w-full max-w-[400px] mt-48 mx-[auto] my-[0] font-mono">
+            <form className="bg-[#1d1d1d] shadow-md rounded px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                <label className="block text-white text-sm mb-2" htmlFor="username">
                     Username
                 </label>
                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -48,7 +48,7 @@ export default function LoginPage() {
                 />
                 </div>
                 <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                <label className="block text-white text-sm mb-2" htmlFor="password">
                     Password
                 </label>
                 <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" 
@@ -59,11 +59,11 @@ export default function LoginPage() {
                 />
                 <p className="text-red-500 text-xs italic">Please choose a password.</p>
                 </div>
-                <div className="flex items-center justify-between">
-                <button onClick={(e) => handleLogin(e)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                <div className="flex items-center justify-between px-2">
+                <button onClick={(e) => handleLogin(e)} className="text-white hover:underline font-bold rounded focus:outline-none focus:shadow-outline" type="button">
                     Sign In
                 </button>
-                <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/">
+                <a className="inline-block align-baseline font-bold text-white hover:underline" href="/">
                     Forgot Password?
                 </a>
                 </div>

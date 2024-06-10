@@ -28,18 +28,18 @@ export default function Header() {
     const username = userInfo?.username;
 
     return (
-        <header className="flex justify-between mb-20 mt-10 items-center">
-          <Link to="/" className="no-underline font-bold text-2xl">Blogger</Link>
-          <nav className="flex gap-[15px]">
+        <header className="flex justify-between mb-20 mt-10 items-center text-white font-mono">
+          <Link to="/" className="no-underline font-bold text-2xl">BY'</Link>
+          <nav className="flex gap-[30px]">
             {username ? (
               <>
-                <Link to="/create" className="no-underline">Create new post</Link>
+                <Link to="/create" className="no-underline hover:border">Create new post</Link>
                 <a onClick={ logout } className="no-underline">Logout</a>
               </>
             ) : (
             <>
-              <Link to="/login" className="no-underline">Login</Link>
-              <Link to="/register" className="no-underline">Register</Link>
+              <Link to="/login" className="no-underline hover:underline cursor-pointer">Login</Link>
+              <Link to="/register" className="no-underline hover:underline cursor-pointer">Register</Link>
             </>
             )}          
           </nav>
