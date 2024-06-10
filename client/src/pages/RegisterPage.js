@@ -29,6 +29,7 @@ export default function RegisterPage() {
             alert('Registered successfully');
         } else {
             alert('Failed to register');
+            console.error(response);
         }
     }
 
