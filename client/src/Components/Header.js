@@ -33,8 +33,8 @@ export default function Header() {
           <nav className="flex gap-[30px]">
             {username ? (
               <>
-                <Link to="/create" className="no-underline hover:border">Create new post</Link>
-                <a onClick={ logout } className="no-underline">Logout</a>
+                <Link to="/create" className="no-underline hover:underline">Create new post</Link>
+                <button onClick={ logout } className="no-underline hover:underline cursor-pointer">Logout</button>
               </>
             ) : (
             <>
