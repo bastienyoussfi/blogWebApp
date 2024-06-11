@@ -18,6 +18,7 @@ const salt = bcrypt.genSaltSync(10);
 app.use(cors({credentials: true, origin: "http://localhost:3000"}));
 app.use(express.json( {limit: '10mb'} ));
 app.use(cookieParser());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://bastienyoussfi:JHL7DXfJaHGEmOkv@cluster0.psmrlkt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
@@ -79,6 +80,20 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
         cover: newPath,
     });
 
+    res.json(postDoc);
+});
+
+app.get('/posts', async (req, res) => {
+    const posts = await Post.find()
+        .sort({createdAt: -1})
+        .limit(10);
+    res.json(posts);
+});
+
+
+app.get('/post/:id', async (req, res) => {
+    const {id} = req.params
+    const postDoc = await Post.findById(id);
     res.json(postDoc);
 });
 
