@@ -123,6 +123,17 @@ app.get('/post/:id', async (req, res) => {
     res.json(postDoc);
 });
 
+app.delete('/post/:id', async (req,res) => {
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, async (err,info) => {
+      if (err) throw err;
+      const {id} = req.params;
+      const postDoc = await Post.findById(id);
+      await postDoc.deleteOne();
+      res.json('ok');
+    });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

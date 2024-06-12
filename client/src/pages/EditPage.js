@@ -9,6 +9,7 @@ export default function EditPost() {
     const [content,setContent] = useState('');
     const [files, setFiles] = useState('');
     const [redirect,setRedirect] = useState(false);
+    const [deleteRedirect, setDeleteRedirect] = useState(false);
   
     useEffect(() => {
       fetch('http://localhost:4000/post/'+id)
@@ -40,6 +41,20 @@ export default function EditPost() {
         setRedirect(true);
       }
     }
+
+    async function handleDelete() {
+        const response = await fetch('http://localhost:4000/post/'+id, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+        if (response.ok) {
+            setDeleteRedirect(true);
+        }
+    }
+
+    if (deleteRedirect) {
+        return <Navigate to={'/'} />
+    }
   
     if (redirect) {
       return <Navigate to={'/post/'+id} />
@@ -62,6 +77,7 @@ export default function EditPost() {
             <input className="bg-black text-white" type="file" onChange={(e)=>setFiles(e.target.files)} name="file"/>
             <Editor value={content} onChange={setContent}/>
             <button className="text-white hover:underline mt-2">Edit post</button>
+            <button onClick={handleDelete} className="text-white hover:underline mt-2">Delete post</button>
         </form>
     )
 }
