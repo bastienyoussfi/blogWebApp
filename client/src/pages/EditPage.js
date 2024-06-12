@@ -1,37 +1,52 @@
-import 'react-quill/dist/quill.snow.css';
-import {useState} from "react";
-import {Navigate} from "react-router-dom";
-import Editor from "../Editor";
+import { useEffect, useState } from 'react';
+import { Navigate, useParams } from 'react-router-dom';
+import Editor from '../Editor';
 
-export default function CreatePost() {
+export default function EditPost() {
+    const {id} = useParams();
     const [title,setTitle] = useState('');
     const [summary,setSummary] = useState('');
     const [content,setContent] = useState('');
     const [files, setFiles] = useState('');
-    const [redirect, setRedirect] = useState(false);
-    async function createNewPost(ev) {
-        const data = new FormData();
-        data.set('title', title);
-        data.set('summary', summary);
-        data.set('content', content);
-        data.set('file', files[0]);
-        ev.preventDefault();
-        const response = await fetch('http://localhost:4000/post', {
-        method: 'POST',
+    const [redirect,setRedirect] = useState(false);
+  
+    useEffect(() => {
+      fetch('http://localhost:4000/post/'+id)
+        .then(response => {
+          response.json().then(postInfo => {
+            setTitle(postInfo.title);
+            setContent(postInfo.content);
+            setSummary(postInfo.summary);
+          });
+        });
+    }, []);
+  
+    async function updatePost(ev) {
+      ev.preventDefault();
+      const data = new FormData();
+      data.set('title', title);
+      data.set('summary', summary);
+      data.set('content', content);
+      data.set('id', id);
+      if (files?.[0]) {
+        data.set('file', files?.[0]);
+      }
+      const response = await fetch('http://localhost:4000/post', {
+        method: 'PUT',
         body: data,
         credentials: 'include',
-        });
-        if (response.ok) {
+      });
+      if (response.ok) {
         setRedirect(true);
-        }
+      }
+    }
+  
+    if (redirect) {
+      return <Navigate to={'/post/'+id} />
     }
 
-    if (redirect) {
-        return <Navigate to="/"/>
-    }
-    
     return (
-        <form onSubmit={ createNewPost } className="w-full max-w-[400px] mt-48 mx-[auto] my-[0] font-mono flex flex-col gap-4">
+        <form onSubmit={ updatePost } className="w-full max-w-[400px] mt-48 mx-[auto] my-[0] font-mono flex flex-col gap-4">
             <input className="max-w-50 rounded text-gray-700 bg-[#8f8c58] border border-white placeholder-gray-700 shadow appearance-none w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" 
             type="title" 
             placeholder={"Title"}
@@ -46,7 +61,7 @@ export default function CreatePost() {
             />
             <input className="bg-black text-white" type="file" onChange={(e)=>setFiles(e.target.files)} name="file"/>
             <Editor value={content} onChange={setContent}/>
-            <button className="text-white hover:underline mt-2">Create post</button>
+            <button className="text-white hover:underline mt-2">Edit post</button>
         </form>
     )
 }

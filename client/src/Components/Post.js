@@ -6,7 +6,7 @@ export default function Post({ _id, title, summary, content, cover, createdAt })
         <div className="grid grid-cols-[.9fr_1.1fr] gap-[50px] mb-8 bg-[#1d1d1d] p-5 rounded-lg font-mono">
         <div className="">
           <Link to={`/post/${_id}`}>
-          <img className="rounded-lg ml-2 max-h-[200px] object-cover w-full transition-all duration-300 cursor-pointer grayscale hover:grayscale-0"
+            <img className="rounded-lg ml-2 max-h-[200px] object-cover w-full transition-all duration-300 cursor-pointer grayscale hover:grayscale-0"
               src={ "http://localhost:4000/" + cover } alt="Nature"/>
             </Link>
         </div>
